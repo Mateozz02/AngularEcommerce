@@ -1,0 +1,15 @@
+<h2>Lista de Productos</h2>
+
+@if(products().length === 0) {
+    <p>No hay productos</p>
+}@else{
+    <div class="grid">
+        @for( p of products(); track p.id){
+            <product-item
+            [product] = "p"
+            (onDelete)="delete($event)"
+            (onUpdate)="update($event)"
+            ></product-item>
+        }
+    </div>
+}
