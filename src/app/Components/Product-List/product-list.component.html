@@ -1,15 +1,22 @@
 <h2>Lista de Productos</h2>
 
-@if(products().length === 0) {
-    <p>No hay productos</p>
-}@else{
-    <div class="grid">
-        @for( p of products(); track p.id){
-            <product-item
-            [product] = "p"
-            (onDelete)="delete($event)"
-            (onUpdate)="update($event)"
-            ></product-item>
-        }
-    </div>
+<input 
+  type="text" 
+  placeholder="Buscar producto..." 
+  (input)="search($any($event.target).value)" 
+/>
+
+
+@if(filteredProducts().length === 0) {
+  <p>No hay productos</p>
+} @else {
+  <div class="grid">
+    @for (p of filteredProducts(); track p.id) {
+      <product-item
+        [product]="p"
+        (onDelete)="delete(p.id!)"
+        (onUpdate)="update($event)"
+      ></product-item>
+    }
+  </div>
 }

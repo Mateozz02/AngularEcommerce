@@ -9,7 +9,8 @@ import { Product } from "../Models/Products.model";
 export class ProductService {
     private apiUrl = 'https://fakestoreapi.com/products';
     productos = signal<Product[]>([]);
-    
+    productoSeleccionado = signal<Product | null>(null);
+
     constructor(private http: HttpClient){}
     
 
@@ -40,5 +41,19 @@ export class ProductService {
             next : () => this.productos.update(list=> list.filter(p => p.id !==id))
         })
     }
-
+    loadSingleProduct(id : number){
+        this.http.get<Product>(`${this.apiUrl}/${id}`).subscribe({
+            next : data => this.productos.set([data]),
+            error(err) {
+                console.log(err);
+            }
+        })
+    }
+        // Método para buscar productos por título
+        searchProducts(query: string): Product[] {
+            const lowerQuery = query.toLowerCase();
+            return this.productos().filter(product =>
+                product.title.toLowerCase().includes(lowerQuery)
+            );
+        }
 }
