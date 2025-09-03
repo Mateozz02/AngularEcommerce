@@ -1,7 +1,7 @@
 import { Component, inject, computed, signal } from "@angular/core";
 import { ProductService } from "../../Services/product.service";
 import { ProductItem } from "../Product-Item/product-item.component";
-import { Product } from "../../Models/Products.model";
+import { Product } from "../../Models/products.model";
 
 @Component({
   standalone: true,

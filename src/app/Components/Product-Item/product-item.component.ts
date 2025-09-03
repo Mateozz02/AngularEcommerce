@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output, signal } from "@angular/core";
-import { Product } from "../../Models/Products.model";
+import { Product } from "../../Models/products.model";
 import { FormsModule, NgModel } from "@angular/forms";
-import { NgIf } from "@angular/common";
 
 @Component({
     standalone : true,
