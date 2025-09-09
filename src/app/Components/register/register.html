@@ -1,0 +1,65 @@
+<div class="max-w-md mx-auto mt-10 p-6 bg-white rounded-2xl shadow-lg">
+  <h2 class="text-2xl font-bold text-center mb-6">Crear cuenta</h2>
+
+  <form [formGroup]="RegisterForm" (ngSubmit)="onRegister()" class="space-y-4">
+
+    <!-- USERNAME -->
+    <div>
+      <label class="block text-sm font-medium mb-1">Usuario</label>
+      <input
+        type="text"
+        formControlName="username"
+        placeholder="Ingrese su usuario"
+        class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      @if (RegisterForm.get('username')?.invalid && RegisterForm.get('username')?.touched) {
+        <p class="text-red-500 text-sm mt-1">Usuario requerido</p>
+      }
+    </div>
+
+    <!-- EMAIL -->
+    <div>
+      <label class="block text-sm font-medium mb-1">Email</label>
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="ejemplo@mail.com"
+        class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      @if (RegisterForm.get('email')?.invalid && RegisterForm.get('email')?.touched) {
+        <p class="text-red-500 text-sm mt-1">Email inválido</p>
+      }
+    </div>
+
+    <!-- PASSWORD -->
+    <div>
+      <label class="block text-sm font-medium mb-1">Contraseña</label>
+      <input
+        type="password"
+        formControlName="password"
+        placeholder="********"
+        class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      @if (RegisterForm.get('password')?.invalid && RegisterForm.get('password')?.touched) {
+        <p class="text-red-500 text-sm mt-1">Contraseña requerida</p>
+      }
+    </div>
+
+    <!-- BOTÓN -->
+    <button
+      type="submit"
+      [disabled]="RegisterForm.invalid"
+      class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+    >
+      Registrarse
+    </button>
+  </form>
+
+  <!-- MENSAJE -->
+  @if (mensaje()) {
+    <div class="mt-4 text-center"
+         [class]="{'text-green-600': mensaje()?.startsWith('✅'), 'text-red-600': mensaje()?.startsWith('❌')}">
+      {{ mensaje() }}
+    </div>
+  }
+</div>

@@ -15,7 +15,7 @@ export class LoginComponent {
     private authService = inject(AuthService);
     private fb = inject(FormBuilder);
     private routes = inject(Router);
-
+    auth = this.authService.isLoggedIn();
      loginForm = this.fb.group({
         username : ['',Validators.required],
         password : ['',Validators.required]
@@ -34,7 +34,7 @@ export class LoginComponent {
             next : (msj) => {
                 this.mensaje.set(msj);
                 this.cargando.set(false);
-                this.routes.navigateByUrl('./dashboard');
+                this.routes.navigateByUrl('/');
             },
             error : (ex) =>{
                 this.mensaje.set(ex.message);

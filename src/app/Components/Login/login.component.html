@@ -1,0 +1,68 @@
+<div class="flex justify-center items-center h-screen bg-gray-100">
+  <div class="w-full max-w-sm p-6 bg-white rounded-2xl shadow-lg">
+    <h2 class="text-2xl font-bold text-center mb-6">Iniciar Sesión</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="space-y-4">
+      
+      <!-- Usuario -->
+      <div>
+        <label for="username" class="block text-sm font-medium text-gray-700">Usuario</label>
+        <input
+          id="username"
+          type="text"
+          formControlName="username"
+          class="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+          placeholder="Ingrese su usuario"
+        />
+
+        @if (loginForm.get('username')?.invalid && loginForm.get('username')?.touched) {
+          <div class="text-sm text-red-500 mt-1">
+            El usuario es obligatorio.
+          </div>
+        }
+      </div>
+
+      <!-- Contraseña -->
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          class="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+          placeholder="Ingrese su contraseña"
+        />
+
+        @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+          <div class="text-sm text-red-500 mt-1">
+            La contraseña es obligatoria.
+          </div>
+        }
+      </div>
+      
+      <!-- Botón -->
+==
+        <button
+        type="submit"
+        [disabled]="loginForm.invalid || cargando()"
+        class="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        @if (cargando()) {
+          Cargando...
+        } @else {
+          Ingresar
+        }
+      </button>
+        <p>Todavia no te registraste<a href="/register">ir aqui</a></p>
+    </form>
+
+    <!-- Mensaje -->
+    @if (mensaje()) {
+      <div class="mt-4 text-center"
+           [class.text-green-600]="!cargando()"
+           [class.text-red-600]="!cargando() && mensaje()?.startsWith('❌')">
+        {{ mensaje() }}
+      </div>
+    }
+  </div>
+</div>

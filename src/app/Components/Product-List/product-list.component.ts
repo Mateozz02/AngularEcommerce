@@ -2,6 +2,7 @@ import { Component, inject, computed, signal } from "@angular/core";
 import { ProductService } from "../../Services/product.service";
 import { ProductItem } from "../Product-Item/product-item.component";
 import { Product } from "../../Models/products.model";
+import { AuthService } from "../../Services/auth.service";
 
 @Component({
   standalone: true,
@@ -18,9 +19,12 @@ import { Product } from "../../Models/products.model";
 })
 export class ProductList {
   private productService = inject(ProductService);
+  private authService = inject(AuthService);
+
   products = this.productService.productos; // <- signal del servicio
   searchText = signal<string>(''); // <- también un signal
-
+  auth : boolean = this.authService.isLoggedIn();
+  
   // computed: se recalcula solo cuando cambia products() o searchText()
   filteredProducts = computed<Product[]>(() => {
     const query = this.searchText().toLowerCase();
