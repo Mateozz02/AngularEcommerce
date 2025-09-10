@@ -1,5 +1,10 @@
 <h2>Lista de Productos</h2>
+@if(message != null){
+  
+  <p style="">{{message}}</p>
+}
 @if(auth){
+<button (click) = "logout()">Cerrar sesion</button>
 <input 
   type="text" 
   placeholder="Buscar producto..." 
@@ -21,6 +26,6 @@
   </div>
 }
 }@else{
-  <p>Debes logearte <a href="/login">iniciar sesion</a></p>
+  <p>Debes logearte, antes de poder ver los productos, <a href="/login">iniciar sesion</a></p>
 }
 

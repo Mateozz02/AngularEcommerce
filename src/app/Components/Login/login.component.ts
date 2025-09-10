@@ -34,7 +34,10 @@ export class LoginComponent {
             next : (msj) => {
                 this.mensaje.set(msj);
                 this.cargando.set(false);
-                this.routes.navigateByUrl('/');
+                setTimeout(() => {
+                    this.routes.navigateByUrl('/')
+                },1000);
+                
             },
             error : (ex) =>{
                 this.mensaje.set(ex.message);

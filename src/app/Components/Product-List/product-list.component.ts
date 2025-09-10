@@ -1,4 +1,4 @@
-import { Component, inject, computed, signal } from "@angular/core";
+import { Component, inject, computed, signal, input, Input } from "@angular/core";
 import { ProductService } from "../../Services/product.service";
 import { ProductItem } from "../Product-Item/product-item.component";
 import { Product } from "../../Models/products.model";
@@ -23,7 +23,7 @@ export class ProductList {
 
   products = this.productService.productos; // <- signal del servicio
   searchText = signal<string>(''); // <- también un signal
-  auth : boolean = this.authService.isLoggedIn();
+  
   
   // computed: se recalcula solo cuando cambia products() o searchText()
   filteredProducts = computed<Product[]>(() => {
@@ -50,4 +50,15 @@ export class ProductList {
   search(query: string) {
     this.searchText.set(query);
   }
+
+  //AuthService
+  auth : boolean = this.authService.isLoggedIn();
+  message? : string;
+  logout(){
+    this.message = this.authService.logout();
+      setTimeout(() => {
+    window.location.reload();
+  }, 1500);
+  }
+  
 }
